@@ -1,0 +1,6 @@
+node_modules/
+dist/
+
+# Real personal data never gets committed. Copy profile.example.ts to profile.ts
+# and fill it in locally; see the README.
+src/profile.ts

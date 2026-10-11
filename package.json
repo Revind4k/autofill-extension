@@ -1,0 +1,18 @@
+{
+  "name": "application-autofill",
+  "version": "3.0.0",
+  "private": true,
+  "description": "Chrome extension that fills job application forms, reading each question with Claude before answering. Never submits.",
+  "type": "module",
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "build": "node build.mjs",
+    "watch": "node build.mjs --watch",
+    "check": "npm run typecheck && npm run build"
+  },
+  "devDependencies": {
+    "@types/chrome": "^0.0.287",
+    "esbuild": "^0.24.0",
+    "typescript": "^5.7.2"
+  }
+}

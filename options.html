@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Autofill settings</title>
+<style>
+  :root{--bg:#f7f7f5;--card:#fff;--ink:#1a1a18;--muted:#6b6b66;--line:#e2e2dd;--accent:#1f5f4a;--soft:#e8f2ee;--warn:#b45309}
+  @media(prefers-color-scheme:dark){:root{--bg:#14140f;--card:#1d1d19;--ink:#ececE6;--muted:#9a9a92;--line:#2e2e28;--accent:#6fd3ae;--soft:#19302a;--warn:#f0b36a}}
+  *{box-sizing:border-box}
+  body{background:var(--bg);color:var(--ink);font:15px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;margin:0;padding:30px 20px 60px}
+  .wrap{max-width:720px;margin:0 auto}
+  h1{font-size:20px;margin:0 0 4px}
+  .sub{color:var(--muted);font-size:13.5px;margin-bottom:22px}
+  section{background:var(--card);border:1px solid var(--line);border-radius:11px;padding:18px;margin-bottom:16px}
+  h2{font-size:12px;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);margin:0 0 12px;font-weight:600}
+  label{display:block;font-size:13px;color:var(--muted);margin:12px 0 4px}
+  input[type=password],input[type=text],textarea{width:100%;padding:9px 11px;border:1px solid var(--line);border-radius:7px;font:inherit;font-size:14px;background:var(--bg);color:var(--ink)}
+  textarea{min-height:230px;resize:vertical;font-size:13.5px;line-height:1.55}
+  .row{display:flex;align-items:center;gap:9px;margin:4px 0}
+  button{background:var(--accent);color:#fff;border:0;border-radius:7px;padding:9px 20px;font:inherit;font-weight:600;cursor:pointer}
+  button.ghost{background:transparent;color:var(--muted);border:1px solid var(--line)}
+  .note{font-size:12.5px;color:var(--muted);margin-top:8px}
+  .warn{background:var(--soft);border:1px solid var(--line);border-left:3px solid var(--warn);border-radius:7px;padding:10px 13px;font-size:13px;margin-top:12px}
+  #status{margin-left:12px;font-size:13px;color:var(--accent);font-weight:600}
+  code{background:rgba(127,127,127,.16);padding:1px 5px;border-radius:4px;font-size:12.5px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Autofill settings</h1>
+  <div class="sub">Everything here stays on this machine. The key is used only by the extension's background worker, never by a web page.</div>
+
+  <section>
+    <h2>AI answering</h2>
+    <div class="row">
+      <input type="checkbox" id="aiEnabled" checked>
+      <label for="aiEnabled" style="margin:0">Use Claude to answer questions the rules can't match</label>
+    </div>
+    <div class="note">Names, email, phone and address are always answered locally — those never leave your machine and cost nothing. Only unrecognised questions are sent.</div>
+
+    <label for="apiKey">Anthropic API key</label>
+    <input type="password" id="apiKey" placeholder="sk-ant-..." autocomplete="off" spellcheck="false">
+    <div class="note">Get one at <code>console.anthropic.com</code> → API keys. Billed per use. Roughly 3–5 cents per application; repeat questions are cached and free. Set a spend limit in the console under Billing.</div>
+
+    <div class="note" style="margin-top:14px"><b>What leaves this machine, and only for unmatched questions:</b>
+      your profile text below, the question wording, and page context (title, headings,
+      and up to 1500 characters of the posting) so answers can reference the actual role.
+      It goes to <code>api.anthropic.com</code> and nowhere else. Your API key is never
+      given to a web page, and neither is your profile.</div>
+
+    <div class="warn">The extension never submits a form. Answers to work authorization, salary, demographics and anything free-text are outlined in <b>amber</b> for you to check before sending.</div>
+  </section>
+
+  <section>
+    <h2>Your profile</h2>
+    <div class="note" style="margin:0 0 8px">This is what Claude reads when answering. The more specific it is, the better the answers. It is sent only with unrecognised questions.</div>
+    <textarea id="profile" spellcheck="false"></textarea>
+  </section>
+
+  <div class="row">
+    <button id="save">Save</button>
+    <button id="test" class="ghost">Test API key</button>
+    <span id="status"></span>
+  </div>
+</div>
+<script src="options.js"></script>
+</body>
+</html>
